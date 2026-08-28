@@ -6,8 +6,11 @@ import { Security } from './components/Security'
 import { FAQ } from './components/FAQ'
 import { CTA } from './components/CTA'
 import { Footer } from './components/Footer'
+import { LegalPage } from './pages/LegalPage'
+import { NotFound } from './pages/NotFound'
+import { privacy, terms } from './pages/legalContent'
 
-export default function App() {
+function Landing() {
   return (
     <>
       <Navbar />
@@ -22,4 +25,26 @@ export default function App() {
       <Footer />
     </>
   )
+}
+
+/**
+ * Every page is prerendered to its own HTML file and links are plain <a>
+ * tags, so there is nothing to route at runtime — this switch only picks
+ * what to render for a given path at build time and on hydration.
+ */
+export default function App({ path }: { path?: string }) {
+  const current =
+    path ?? (typeof window === 'undefined' ? '/' : window.location.pathname)
+  const route = current.replace(/\/+$/, '') || '/'
+
+  switch (route) {
+    case '/':
+      return <Landing />
+    case '/privacy':
+      return <LegalPage {...privacy} />
+    case '/terms':
+      return <LegalPage {...terms} />
+    default:
+      return <NotFound />
+  }
 }

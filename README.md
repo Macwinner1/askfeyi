@@ -26,14 +26,46 @@ npm run preview   # serve the production build
 
 ```
 src/
-  App.tsx              section order
-  index.css            design tokens + .glass-card / .gradient-text utilities
+  App.tsx              route switch: / , /privacy , /terms , 404
+  index.css            @font-face + design tokens + .glass-card / .gradient-text
+  entry-server.tsx     build-time render entry
   lib/site.ts          brand name, WhatsApp link, nav — edit copy here first
-  hooks/useTheme.ts    dark/light, persisted to localStorage
+  hooks/useTheme.ts    dark/light, persisted, SSR-safe
   hooks/useReveal.ts   scroll-in animation (IntersectionObserver)
   components/          Navbar, Hero, Features, DailyLife, Security, FAQ, CTA, Footer
+  pages/               LegalPage, NotFound, legalContent
+scripts/prerender.mjs  renders each route to its own .html
+public/fonts/          self-hosted Inter (see below)
 legacy/                the original static index.html + styles.css
 ```
+
+## Prerendering
+
+`npm run build` runs Vite twice — once for the client, once as an SSR bundle —
+then `scripts/prerender.mjs` renders every route to static HTML:
+
+```
+dist/index.html  dist/privacy.html  dist/terms.html  dist/404.html
+```
+
+This matters because **WhatsApp's link-preview scraper does not execute
+JavaScript**. Without prerendering plus the `og:` tags in `index.html`, a link
+shared in WhatsApp — the product's main distribution channel — renders as a
+bare URL. Cloudflare Pages serves `/privacy` from `privacy.html` and unmatched
+paths from `404.html` automatically, so there is no runtime router.
+
+## Fonts
+
+Inter is self-hosted (SIL OFL) rather than loaded from Google, which removes two
+cross-origin connections and cuts font weight from 130KB to 49KB.
+
+The split matters: **₦ is U+20A6, which lives in `latin-ext`, not `latin`.**
+Google served an 83KB `latin-ext` file for that one glyph, so `latin-ext` here is
+subset down to 1.5KB. `latin` is kept complete, so ordinary copy edits — accents,
+punctuation — can never silently lose a glyph.
+
+If you ever add copy needing a character outside Latin-1 plus ₦, regenerate
+`inter-latin-ext.woff2` with a subsetter rather than assuming it renders.
 
 ## Theming
 

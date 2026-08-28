@@ -5,7 +5,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/cn'
 
 export function Navbar() {
-  const { theme, toggle } = useTheme()
+  const { theme, toggle, mounted } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -46,9 +46,14 @@ export function Navbar() {
             type="button"
             onClick={toggle}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            suppressHydrationWarning
             className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            {theme === 'dark' ? (
+            {/* Hold the space until the real theme is known, so the icon
+                never flips on hydration. */}
+            {!mounted ? (
+              <span className="block size-4" />
+            ) : theme === 'dark' ? (
               <Sun className="size-4" aria-hidden />
             ) : (
               <Moon className="size-4" aria-hidden />
