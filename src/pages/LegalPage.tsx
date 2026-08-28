@@ -37,7 +37,7 @@ export function LegalPage({ title, updated, intro, sections }: Props) {
             Last updated: {updated}
           </p>
 
-          <div className="glass-card mt-8 rounded-xl border-l-2 border-l-primary p-5">
+          <div className="surface mt-8 rounded-xl border-l-2 border-l-primary p-5">
             <p className="text-sm leading-relaxed text-muted-foreground">{intro}</p>
           </div>
 

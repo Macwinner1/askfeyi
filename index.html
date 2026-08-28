@@ -4,35 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Feyi — Your Finance, inside WhatsApp</title>
+    <title>Feyi. Your finance, inside WhatsApp</title>
     <meta
       name="description"
-      content="Send money, pay bills, buy airtime — all through a simple WhatsApp chat. No downloads. No forms. Just text, images or voice."
+      content="Send money, pay bills and buy airtime through a simple WhatsApp chat. No downloads. No forms. Just text, images or voice."
     />
     <link rel="canonical" href="https://askfeyi.com/" />
-    <meta name="theme-color" content="#0d1117" />
+    <meta name="theme-color" content="#0B141A" />
 
     <!-- Link previews. WhatsApp's scraper does not run JS, so everything it
          needs has to be static in this file. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Feyi" />
     <meta property="og:url" content="https://askfeyi.com/" />
-    <meta property="og:title" content="Feyi — Your Finance, inside WhatsApp" />
+    <meta property="og:title" content="Feyi. Your finance, inside WhatsApp" />
     <meta
       property="og:description"
-      content="Send money, pay bills, buy airtime — all through a simple WhatsApp chat. No downloads. No forms. Just text, images or voice."
+      content="Send money, pay bills and buy airtime through a simple WhatsApp chat. No downloads. No forms. Just text, images or voice."
     />
     <meta property="og:image" content="https://askfeyi.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Feyi — your finance, inside WhatsApp" />
+    <meta property="og:image:alt" content="Feyi. Your finance, inside WhatsApp" />
     <meta property="og:locale" content="en_NG" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Feyi — Your Finance, inside WhatsApp" />
+    <meta name="twitter:title" content="Feyi. Your finance, inside WhatsApp" />
     <meta
       name="twitter:description"
-      content="Send money, pay bills, buy airtime — all through a simple WhatsApp chat."
+      content="Send money, pay bills and buy airtime through a simple WhatsApp chat."
     />
     <meta name="twitter:image" content="https://askfeyi.com/og.png" />
 
@@ -68,9 +68,9 @@
     <script type="module" src="/src/main.tsx"></script>
     <noscript>
       <style>
-        /* Reveal animations start at opacity:0. Without JS they would never
-           run, so show everything outright. */
-        [style*='transition-delay'] {
+        /* Scroll reveals are prerendered at opacity:0 and animated in by JS.
+           With no JS they would never run, so show everything outright. */
+        [style*='opacity:0'] {
           opacity: 1 !important;
           transform: none !important;
         }

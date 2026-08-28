@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "node scripts/serve-dist.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.475.0",
+    "motion": "^13.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

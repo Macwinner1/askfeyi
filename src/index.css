@@ -26,69 +26,85 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---- Design tokens (HSL triplets so /alpha modifiers work) ---- */
+/* ---- Design tokens ----
+   Palette is WhatsApp's own: #25D366 green, #0B141A / #111B21 dark surfaces,
+   #E9EDEF / #8696A0 dark text, #667781 light secondary.
+
+   The green is a FILL only. #25D366 against white text is 1.98:1, so every
+   button puts near-black on it (9.38:1), which is what WhatsApp does too.
+   Green as TEXT uses --green, which is darkened in light mode to clear AA. */
 :root {
-  --background: 0 0% 99%;
-  --foreground: 220 20% 12%;
+  --background: 0 0% 100%;
+  --foreground: 204 41% 7%;
 
   --card: 0 0% 100%;
-  --card-foreground: 220 20% 12%;
+  --card-foreground: 204 41% 7%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 220 20% 12%;
+  --popover-foreground: 204 41% 7%;
 
-  --primary: 152 69% 28%;
-  --primary-foreground: 0 0% 100%;
+  /* WhatsApp #25D366, identical in both themes */
+  --primary: 142 70% 49%;
+  --primary-foreground: 204 41% 7%;
 
-  --secondary: 220 14% 94%;
-  --muted: 220 14% 95%;
-  --muted-foreground: 220 10% 40%;
+  /* green used for text, not fills */
+  --green: 142 70% 31%;
+  /* Large text only (>=24px bold). 3.40:1 clears AA-large, and reads far
+     closer to the button green than the small-text value can. */
+  --green-lg: 142 70% 37%;
 
-  --accent: 152 69% 28%;
-  --accent-foreground: 0 0% 100%;
+  --secondary: 200 16% 96%;
+  --muted: 200 16% 96%;
+  --muted-foreground: 202 12% 45%;
 
-  --destructive: 0 84.2% 60.2%;
+  --accent: 142 70% 49%;
+  --accent-foreground: 204 41% 7%;
+
+  --destructive: 4 68% 50%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 220 14% 88%;
-  --input: 220 14% 88%;
-  --ring: 152 69% 28%;
+  --border: 200 16% 93%;
+  --input: 200 16% 93%;
+  --ring: 142 70% 31%;
 
-  --navy-deep: 220 20% 95%;
-  --emerald-glow: 152 69% 42%;
-  --surface-glass: 0 0% 100%;
+  --surface: 0 0% 100%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  --background: 220 20% 6%;
-  --foreground: 0 0% 95%;
+  --background: 204 41% 7%;
+  --foreground: 200 16% 93%;
 
-  --card: 220 18% 10%;
-  --card-foreground: 0 0% 95%;
+  --card: 203 32% 10%;
+  --card-foreground: 200 16% 93%;
 
-  --popover: 220 18% 10%;
-  --popover-foreground: 0 0% 95%;
+  --popover: 203 32% 10%;
+  --popover-foreground: 200 16% 93%;
 
-  --primary: 152 69% 42%;
-  --primary-foreground: 220 20% 6%;
+  --primary: 142 70% 49%;
+  --primary-foreground: 204 41% 7%;
 
-  --secondary: 220 16% 14%;
-  --muted: 220 16% 16%;
-  --muted-foreground: 220 10% 55%;
+  --green: 142 70% 50%;
+  --green-lg: 142 70% 50%;
 
-  --accent: 152 69% 42%;
-  --accent-foreground: 220 20% 6%;
+  --secondary: 202 22% 15%;
+  --muted: 202 22% 15%;
+  --muted-foreground: 203 12% 58%;
 
-  --border: 220 16% 18%;
-  --input: 220 16% 18%;
-  --ring: 152 69% 42%;
+  --accent: 142 70% 49%;
+  --accent-foreground: 204 41% 7%;
 
-  --navy-deep: 220 20% 6%;
-  --emerald-glow: 152 69% 48%;
-  --surface-glass: 220 18% 10%;
+  --destructive: 4 62% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 202 22% 17%;
+  --input: 202 22% 17%;
+  --ring: 142 70% 50%;
+
+  --surface: 203 32% 10%;
 }
+
 
 /* ---- Map tokens into Tailwind's theme ---- */
 @theme inline {
@@ -99,6 +115,7 @@
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-primary: hsl(var(--primary));
+  --color-green: hsl(var(--green));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-secondary: hsl(var(--secondary));
   --color-muted: hsl(var(--muted));
@@ -140,11 +157,14 @@
     font-family: var(--font-display);
   }
 
-  .gradient-text {
-    color: transparent;
-    background-image: linear-gradient(135deg, #1ea465, #3ddb92);
-    -webkit-background-clip: text;
-    background-clip: text;
+  /* Solid WhatsApp-family green. No gradient. */
+  .accent-text {
+    color: hsl(var(--green));
+  }
+
+  /* Only for display-size type, where AA allows 3:1. */
+  .accent-heading {
+    color: hsl(var(--green-lg));
   }
 
   .section-heading {
@@ -153,62 +173,54 @@
     letter-spacing: -0.025em;
   }
 
-  .glass-card {
-    background: hsl(var(--surface-glass) / 0.6);
-    border: 1px solid hsl(var(--border) / 0.5);
-    /* Light mode sits card-on-near-white, so lean on elevation, not contrast. */
-    box-shadow: 0 1px 2px hsl(220 20% 12% / 0.04), 0 8px 24px hsl(220 20% 12% / 0.04);
-  }
-  .dark .glass-card {
-    box-shadow: none;
+  /* Flat surfaces. No blur, no drop shadows. */
+  .surface {
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
   }
 
-  .glass-card-hover {
-    background: hsl(var(--surface-glass) / 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border) / 0.5);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .surface-hover {
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
-  .glass-card-hover:hover {
-    border-color: hsl(var(--primary) / 0.3);
-    transform: translateY(-2px);
-  }
-  :root .glass-card-hover {
-    box-shadow: 0 1px 2px hsl(220 20% 12% / 0.04), 0 8px 24px hsl(220 20% 12% / 0.04);
-  }
-  :root .glass-card-hover:hover {
-    box-shadow: 0 2px 4px hsl(220 20% 12% / 0.05), 0 16px 40px hsl(220 20% 12% / 0.07);
-  }
-  .dark .glass-card-hover,
-  .dark .glass-card-hover:hover {
-    box-shadow: none;
+  .surface-hover:hover {
+    border-color: hsl(var(--primary) / 0.5);
   }
 
-  .glass-card-navbar {
-    background: hsl(var(--surface-glass) / 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: none;
+  .surface-navbar {
+    background: hsl(var(--background) / 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
-  /* Dotted grid that fades out toward the edges. */
   .grid-bg {
     background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.6) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.6) 1px, transparent 1px);
-    background-size: 20px 20px;
-    -webkit-mask-image:
-      repeating-linear-gradient(90deg, #000 0 3px, transparent 3px 8px),
-      repeating-linear-gradient(#000 0 3px, transparent 3px 8px),
-      radial-gradient(70% 60%, #000 60%, transparent 100%);
-    mask-image:
-      repeating-linear-gradient(90deg, #000 0 3px, transparent 3px 8px),
-      repeating-linear-gradient(#000 0 3px, transparent 3px 8px),
-      radial-gradient(70% 60%, #000 60%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
+      linear-gradient(to right, hsl(var(--border) / 0.7) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.7) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(75% 60% at 50% 40%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(75% 60% at 50% 40%, #000 40%, transparent 100%);
   }
+
+  /* Blinking caret for the typewriter effect. */
+  .caret::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background: currentColor;
+    animation: feyi-caret 1s steps(1) infinite;
+  }
+}
+
+@keyframes feyi-caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
 }
 
 @keyframes feyi-float {

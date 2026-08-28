@@ -1,3 +1,4 @@
+import { LazyMotion, MotionConfig } from 'motion/react'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { Features } from './components/Features'
@@ -9,6 +10,9 @@ import { Footer } from './components/Footer'
 import { LegalPage } from './pages/LegalPage'
 import { NotFound } from './pages/NotFound'
 import { privacy, terms } from './pages/legalContent'
+
+const loadMotionFeatures = () =>
+  import('./components/motion/features').then((mod) => mod.default)
 
 function Landing() {
   return (
@@ -37,14 +41,22 @@ export default function App({ path }: { path?: string }) {
     path ?? (typeof window === 'undefined' ? '/' : window.location.pathname)
   const route = current.replace(/\/+$/, '') || '/'
 
-  switch (route) {
-    case '/':
-      return <Landing />
-    case '/privacy':
-      return <LegalPage {...privacy} />
-    case '/terms':
-      return <LegalPage {...terms} />
-    default:
-      return <NotFound />
-  }
+  const page =
+    route === '/' ? (
+      <Landing />
+    ) : route === '/privacy' ? (
+      <LegalPage {...privacy} />
+    ) : route === '/terms' ? (
+      <LegalPage {...terms} />
+    ) : (
+      <NotFound />
+    )
+
+  // LazyMotion keeps the animation feature set out of the main bundle;
+  // reducedMotion="user" makes every motion component honour the OS setting.
+  return (
+    <LazyMotion features={loadMotionFeatures} strict>
+      <MotionConfig reducedMotion="user">{page}</MotionConfig>
+    </LazyMotion>
+  )
 }

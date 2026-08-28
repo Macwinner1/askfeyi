@@ -4,7 +4,7 @@ export const site = {
   tagline: 'Natural Language Financial Assistant',
   whatsappUrl: 'https://wa.me/2348000000000',
   legalEmail: 'hello@askfeyi.com',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get started',
   nav: [
     { label: 'Features', href: '/#features' },
     { label: 'How it works', href: '/#how-it-works' },

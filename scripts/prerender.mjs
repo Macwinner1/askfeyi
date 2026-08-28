@@ -6,23 +6,23 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { render } from '../dist-ssr/entry-server.js'
 
 const ROUTES = [
-  { path: '/', file: 'index.html', title: 'Feyi — Your Finance, inside WhatsApp' },
+  { path: '/', file: 'index.html', title: 'Feyi. Your finance, inside WhatsApp' },
   {
     path: '/privacy',
     file: 'privacy.html',
-    title: 'Privacy Policy — Feyi',
+    title: 'Privacy Policy | Feyi',
     description: 'How Feyi collects, uses and protects your personal information.',
   },
   {
     path: '/terms',
     file: 'terms.html',
-    title: 'Terms of Service — Feyi',
+    title: 'Terms of Service | Feyi',
     description: 'The terms that govern your use of Feyi.',
   },
   {
     path: '/404',
     file: '404.html',
-    title: 'Page not found — Feyi',
+    title: 'Page not found | Feyi',
     description: 'That page does not exist.',
     noindex: true,
   },

@@ -20,7 +20,7 @@ export function Navbar() {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-        scrolled ? 'glass-card-navbar border-b border-border/50' : 'bg-transparent',
+        scrolled ? 'surface-navbar border-b border-border/50' : 'bg-transparent',
       )}
     >
       <nav className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
@@ -64,7 +64,7 @@ export function Navbar() {
             href={site.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+            className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:inline-flex"
           >
             {site.ctaLabel}
           </a>
@@ -82,7 +82,7 @@ export function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="glass-card-navbar border-t border-border/50 md:hidden">
+        <div className="surface-navbar border-t border-border/50 md:hidden">
           <div className="container mx-auto flex flex-col gap-1 px-4 py-4">
             {site.nav.map((item) => (
               <a
@@ -98,7 +98,7 @@ export function Navbar() {
               href={site.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 rounded-full bg-primary px-5 py-2.5 text-center text-sm font-medium text-primary-foreground"
+              className="mt-2 rounded-full bg-primary px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground"
             >
               {site.ctaLabel}
             </a>

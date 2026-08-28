@@ -12,7 +12,7 @@ export function Accordion({ items }: { items: readonly AccordionItem[] }) {
   const baseId = useId()
 
   return (
-    <div className="glass-card rounded-2xl px-6">
+    <div className="surface rounded-2xl px-6">
       {items.map((item, i) => {
         const isOpen = open === i
         const panelId = `${baseId}-panel-${i}`

@@ -1,11 +1,11 @@
 import { Accordion, type AccordionItem } from './Accordion'
-import { Reveal } from './Reveal'
+import { Reveal } from './motion/Reveal'
 
 const faqs: readonly AccordionItem[] = [
   {
     question: 'What is Feyi?',
     answer:
-      'Feyi is an AI-powered WhatsApp financial assistant that lets you manage your finances entirely through chat. Send money, pay bills, check balances, and more — all without downloading a separate app.',
+      'Feyi is an AI-powered WhatsApp financial assistant that lets you manage your finances entirely through chat. Send money, pay bills, check balances and more, all without downloading a separate app.',
   },
   {
     question: 'How does Feyi work?',
@@ -15,7 +15,7 @@ const faqs: readonly AccordionItem[] = [
   {
     question: 'Is Feyi secure?',
     answer:
-      "Every transaction on Feyi requires your explicit confirmation, so nothing moves without your approval. And because Feyi runs on WhatsApp, your conversations and data are protected by WhatsApp's end-to-end encryption — one of the most secure messaging protocols in the world.",
+      "Every transaction on Feyi requires your explicit confirmation, so nothing moves without your approval. And because Feyi runs on WhatsApp, your conversations and data are protected by WhatsApp's end-to-end encryption, one of the most secure messaging protocols in the world.",
   },
   {
     question: 'How do I start using Feyi?',
@@ -45,7 +45,7 @@ const faqs: readonly AccordionItem[] = [
   {
     question: 'Is Feyi a bank?',
     answer:
-      "Feyi is not a bank — we're an AI-powered financial assistant that lets you send and receive money, and access other financial services, all through WhatsApp. Your funds are securely held by CBN-licensed banking partners, giving you the safety of regulated banking with the convenience of a chat.",
+      "Feyi is not a bank. We're an AI-powered financial assistant that lets you send and receive money, and access other financial services, all through WhatsApp. Your funds are securely held by CBN-licensed banking partners, giving you the safety of regulated banking with the convenience of a chat.",
   },
 ]
 
@@ -53,13 +53,13 @@ export function FAQ() {
   return (
     <section id="faq" className="relative py-28">
       <div className="container relative mx-auto max-w-3xl px-4 lg:px-8">
-        <Reveal duration={600} distance={8}>
+        <Reveal duration={0.6} y={32}>
           <div className="mb-16 text-center">
             <span className="text-xs font-medium uppercase tracking-widest text-primary">
               FAQ
             </span>
             <h2 className="section-heading mt-4">
-              Frequently Asked <span className="gradient-text">Questions</span>
+              Frequently Asked <span className="accent-heading">Questions</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-lg text-muted-foreground">
               Everything you need to know about Feyi.
@@ -67,7 +67,7 @@ export function FAQ() {
           </div>
         </Reveal>
 
-        <Reveal delay={100} duration={600}>
+        <Reveal delay={0.1} duration={0.6}>
           <Accordion items={faqs} />
         </Reveal>
       </div>

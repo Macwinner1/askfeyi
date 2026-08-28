@@ -12,7 +12,7 @@ export function NotFound() {
             404
           </span>
           <h1 className="section-heading mt-4">
-            This page doesn't <span className="gradient-text">exist</span>
+            This page doesn't <span className="accent-heading">exist</span>
           </h1>
           <p className="mx-auto mt-4 max-w-md text-lg text-muted-foreground">
             The link may be broken, or the page may have moved.
@@ -20,7 +20,7 @@ export function NotFound() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="/"
-              className="rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className="rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Back to home
             </a>
