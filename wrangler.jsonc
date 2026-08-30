@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "askfeyi",
+  "compatibility_date": "2026-08-28",
+
+  // Committing this file stops `wrangler deploy` running its auto-config,
+  // which would install @cloudflare/vite-plugin and re-run the build with a
+  // different SSR output layout, breaking scripts/prerender.mjs.
+  //
+  // This is a static site: every route is prerendered to HTML at build time,
+  // so there is no Worker entry, just assets.
+  "assets": {
+    "directory": "./dist",
+    // Unmatched paths serve dist/404.html with a real 404 status.
+    // NOT "single-page-application", which would return index.html (and a 200)
+    // for every unknown path.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": { "enabled": true }
+}

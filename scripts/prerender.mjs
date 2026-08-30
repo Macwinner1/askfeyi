@@ -2,8 +2,33 @@
 // scrapers (WhatsApp's does not run JS) then see real content, and
 // Cloudflare Pages serves /privacy from privacy.html and unmatched paths
 // from 404.html with a real 404 status.
-import { readFileSync, writeFileSync } from 'node:fs'
-import { render } from '../dist-ssr/entry-server.js'
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs'
+import { pathToFileURL } from 'node:url'
+
+/**
+ * Locate the built SSR entry. vite.config.ts pins it to dist-ssr/entry-server.js,
+ * but a build plugin can still relocate or hash it, so fall back to a search
+ * rather than failing on a hard-coded path.
+ */
+function findEntry() {
+  const pinned = 'dist-ssr/entry-server.js'
+  if (existsSync(pinned)) return pinned
+  const stack = ['dist-ssr']
+  while (stack.length) {
+    const dir = stack.pop()
+    if (!existsSync(dir)) continue
+    for (const item of readdirSync(dir, { withFileTypes: true })) {
+      const full = `${dir}/${item.name}`
+      if (item.isDirectory()) stack.push(full)
+      else if (/^entry-server.*\.js$/.test(item.name)) return full
+    }
+  }
+  throw new Error('prerender: no SSR entry found under dist-ssr/')
+}
+
+const entry = findEntry()
+const { render } = await import(pathToFileURL(entry).href)
+console.log(`prerender: using ${entry}`)
 
 const ROUTES = [
   { path: '/', file: 'index.html', title: 'Feyi. Your finance, inside WhatsApp' },
@@ -28,9 +53,14 @@ const ROUTES = [
   },
 ]
 
+// `vite build` always regenerates dist/index.html with an empty root, and it
+// runs immediately before this script, so an exact match is safe.
 const template = readFileSync('dist/index.html', 'utf8')
 if (!template.includes('<div id="root"></div>')) {
-  throw new Error('prerender: root placeholder missing from dist/index.html')
+  throw new Error(
+    'prerender: dist/index.html has no empty <div id="root"></div>. ' +
+      'Run `vite build` immediately before this script.',
+  )
 }
 
 for (const route of ROUTES) {
