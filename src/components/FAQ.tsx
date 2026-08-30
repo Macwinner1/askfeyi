@@ -51,19 +51,13 @@ const faqs: readonly AccordionItem[] = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative py-28">
+    <section id="faq" className="border-t border-border py-24 lg:py-28">
       <div className="container relative mx-auto max-w-3xl px-4 lg:px-8">
         <Reveal duration={0.6} y={32}>
-          <div className="mb-16 text-center">
-            <span className="text-xs font-medium uppercase tracking-widest text-primary">
-              FAQ
-            </span>
-            <h2 className="section-heading mt-4">
-              Frequently Asked <span className="accent-heading">Questions</span>
+          <div className="mb-12">
+            <h2 className="max-w-[16ch] font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.03em]">
+              The questions people ask before they trust us.
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-lg text-muted-foreground">
-              Everything you need to know about Feyi.
-            </p>
           </div>
         </Reveal>
 

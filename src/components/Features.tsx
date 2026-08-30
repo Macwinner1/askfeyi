@@ -1,74 +1,54 @@
-import {
-  BarChart3,
-  CalendarClock,
-  MessageSquare,
-  Send,
-  Smartphone,
-  Zap,
-} from 'lucide-react'
 import { Reveal } from './motion/Reveal'
 
-const features = [
+const jobs = [
   {
-    icon: Send,
-    title: 'Smart transfers',
-    desc: 'AI-powered recipient suggestions and fraud detection. Single or bulk, it just works.',
+    n: 'Bulk',
+    title: 'Pay everybody in one message',
+    body: 'Name them and the amounts in a single line. Feyi lays out who gets what, totals it, and sends every one of them their own receipt once you approve.',
+    example: 'Pay Emeka 15k, Tunde 8k, Ada 5k',
   },
   {
-    icon: CalendarClock,
-    title: 'Schedule payments',
-    desc: 'Set it and forget it. One-time or recurring transfers with smart reminders.',
+    n: 'Standing',
+    title: 'Money that goes out without you',
+    body: 'Rent on the last Friday. Salaries on the 28th. Data for the team every Monday. Tell Feyi once and it holds the schedule, then tells you before it runs.',
+    example: 'Send ₦120k to landlord every last Friday',
   },
   {
-    icon: Zap,
-    title: 'Pay utility bills',
-    desc: 'Pay your electricity bills instantly, without leaving the chat.',
-  },
-  {
-    icon: Smartphone,
-    title: 'Airtime and data',
-    desc: 'Top up any network instantly. Bulk purchases supported.',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Natural chat',
-    desc: 'Skip the menus and codes. Use everyday language: type, send an image, or record a voice note.',
-  },
-  {
-    icon: BarChart3,
-    title: 'Spending insights',
-    desc: 'Ask Feyi where your money went and get a clear summary back.',
+    n: 'Ledger',
+    title: 'Ask where the money went',
+    body: 'No dashboard to learn. Ask in the chat and Feyi answers with the figure and the breakdown behind it, for today, this week, or one person.',
+    example: 'How much did I send Emeka this month?',
   },
 ]
 
 export function Features() {
   return (
-    <section id="features" className="relative py-28">
-      <div className="container relative mx-auto px-4 lg:px-8">
+    <section id="features" className="border-t border-border py-24 lg:py-32">
+      <div className="container mx-auto px-4 lg:px-8">
         <Reveal>
-          <div className="mb-16 text-center">
-            <span className="text-xs font-semibold uppercase tracking-widest accent-text">
-              Features
-            </span>
-            <h2 className="section-heading mt-4">
-              Everything you need,{' '}
-              <span className="accent-heading">nothing you don't</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-lg text-muted-foreground">
-              Powerful financial tools wrapped in the simplicity of a chat message.
-            </p>
-          </div>
+          <h2 className="max-w-[18ch] font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-[1.02] tracking-[-0.03em]">
+            Three things people actually use it for.
+          </h2>
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ icon: Icon, title, desc }, i) => (
-            <Reveal key={title} delay={i * 0.05} duration={0.45}>
-              <div className="surface-hover h-full rounded-2xl p-7">
-                <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-muted">
-                  <Icon aria-hidden className="size-5 text-foreground" />
-                </div>
-                <h3 className="mb-2 font-display text-lg font-bold">{title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{desc}</p>
+        <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
+          {jobs.map((job, i) => (
+            <Reveal key={job.title} delay={i * 0.07} className="bg-background">
+              <div className="flex h-full flex-col gap-4 py-8 lg:px-8 lg:first:pl-0">
+                <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] accent-text">
+                  {job.n}
+                </span>
+                <h3 className="font-display text-xl font-bold leading-snug tracking-[-0.01em]">
+                  {job.title}
+                </h3>
+                <p className="text-[0.95rem] leading-relaxed text-muted-foreground">
+                  {job.body}
+                </p>
+                <p className="mt-auto pt-2">
+                  <code className="font-mono text-[0.78rem] leading-relaxed text-foreground">
+                    &ldquo;{job.example}&rdquo;
+                  </code>
+                </p>
               </div>
             </Reveal>
           ))}

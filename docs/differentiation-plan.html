@@ -1,0 +1,598 @@
+<title>Feyi Differentiation Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --paper:   #FBFCFA;
+    --raised:  #F2F5F2;
+    --ink:     #10150F;
+    --dim:     #5A6A5F;
+    --rule:    #DFE6E1;
+    --accent:  #0F7A3C;
+    --mark:    #17994C;
+    --strike:  #97A69C;
+    --alarm:   #A8321F;
+
+    --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+    --body:    'Newsreader', Georgia, 'Times New Roman', serif;
+    --mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --col: 34rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:  #0D110F;
+      --raised: #141A16;
+      --ink:    #E8EDE9;
+      --dim:    #93A399;
+      --rule:   #242C27;
+      --accent: #3ED97F;
+      --mark:   #3ED97F;
+      --strike: #6B7A70;
+      --alarm:  #E8735C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:  #0D110F;
+    --raised: #141A16;
+    --ink:    #E8EDE9;
+    --dim:    #93A399;
+    --rule:   #242C27;
+    --accent: #3ED97F;
+    --mark:   #3ED97F;
+    --strike: #6B7A70;
+    --alarm:  #E8735C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--col); margin: 0 auto; padding: 0 1.5rem; }
+  .wide { max-width: 54rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 800; text-wrap: balance; }
+
+  h1 {
+    font-size: clamp(2.3rem, 6.5vw, 3.7rem);
+    line-height: 1.03; letter-spacing: -0.035em; margin: 0 0 1.25rem;
+  }
+  h2 {
+    font-size: clamp(1.55rem, 4vw, 2.1rem);
+    line-height: 1.1; letter-spacing: -0.025em; margin: 0 0 1rem;
+  }
+  h3 {
+    font-weight: 600; font-size: 1.08rem; line-height: 1.3;
+    letter-spacing: -0.01em; margin: 0 0 0.4rem;
+  }
+
+  p { margin: 0 0 1.15rem; }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 2px;
+  }
+
+  strong { font-weight: 500; color: var(--ink); }
+  em { font-style: italic; }
+
+  .label {
+    font-family: var(--mono); font-weight: 500; font-size: 0.7rem;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--mark);
+  }
+
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(3.5rem, 9vw, 6rem) 0 clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .kicker { display: flex; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: baseline; }
+
+  .standfirst { font-size: 1.2rem; line-height: 1.5; color: var(--dim); max-width: 30rem; }
+
+  section { padding: clamp(3rem, 7vw, 4.5rem) 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+
+  .sec-head { margin-bottom: 2rem; }
+  .sec-head .label { display: block; margin-bottom: 0.7rem; }
+
+  /* correction callouts */
+  .correction {
+    border-left: 2px solid var(--alarm);
+    background: var(--raised);
+    padding: 1.25rem 1.35rem;
+    margin-bottom: 1.5rem;
+  }
+  .correction h3 { color: var(--alarm); margin-bottom: 0.45rem; }
+  .correction p { margin: 0; color: var(--dim); font-size: 1rem; }
+
+  /* evidence table */
+  .evidence {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 0.92rem;
+  }
+  .evidence caption {
+    text-align: left; font-family: var(--mono); font-size: 0.68rem;
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--dim);
+    padding-bottom: 0.7rem;
+  }
+  .evidence th {
+    text-align: left; font-family: var(--mono); font-weight: 500;
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--dim); border-bottom: 1px solid var(--rule);
+    padding: 0 0.8rem 0.5rem 0;
+  }
+  .evidence td {
+    padding: 0.6rem 0.8rem 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.4;
+  }
+  .evidence td.pct {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    color: var(--alarm); white-space: nowrap; font-size: 0.85rem;
+  }
+  .evidence td.txt { color: var(--strike); }
+  .scroller { overflow-x: auto; }
+
+  /* wedge */
+  .wedge { background: var(--raised); border-left: 2px solid var(--mark); padding: 1.6rem 1.5rem; margin-bottom: 1.5rem; }
+  .wedge p {
+    font-family: var(--display); font-weight: 600; font-size: 1.32rem;
+    line-height: 1.32; letter-spacing: -0.015em; margin: 0;
+  }
+
+  /* two-col contrast */
+  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 1.5rem; }
+  .versus > div { background: var(--paper); padding: 1.35rem 1.25rem; }
+  .versus h3 { font-size: 0.95rem; margin-bottom: 0.8rem; }
+  .versus ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.55rem; font-size: 0.95rem; line-height: 1.4; }
+  .versus .them { color: var(--strike); }
+  @media (max-width: 40rem) { .versus { grid-template-columns: 1fr; } }
+
+  /* architecture */
+  .arch { margin: 1.5rem 0 0; padding: 0; list-style: none; counter-reset: a; }
+  .arch li {
+    counter-increment: a;
+    display: grid; grid-template-columns: 1.9rem 1fr; gap: 0.9rem;
+    padding: 0.85rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .arch li:first-child { border-top: 1px solid var(--rule); }
+  .arch li::before {
+    content: counter(a, decimal-leading-zero);
+    font-family: var(--mono); font-size: 0.7rem; color: var(--mark);
+    font-variant-numeric: tabular-nums; padding-top: 0.3rem;
+  }
+  .arch p { margin: 0.25rem 0 0; color: var(--dim); font-size: 0.95rem; }
+
+  /* palette chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; padding: 0; list-style: none; }
+  .chips li { display: grid; gap: 0.35rem; font-family: var(--mono); font-size: 0.66rem; color: var(--dim); }
+  .chips .sw { width: 4.2rem; height: 2.4rem; border: 1px solid var(--rule); }
+
+  /* phases */
+  .phases { margin-top: 1.5rem; }
+  .phase { display: grid; grid-template-columns: 3rem 1fr; gap: 1.2rem; padding: 1.35rem 0; border-top: 1px solid var(--rule); }
+  .phase:last-child { border-bottom: 1px solid var(--rule); }
+  .phase .num {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em;
+    color: var(--mark); font-variant-numeric: tabular-nums; padding-top: 0.3rem;
+  }
+  .phase p { color: var(--dim); margin: 0.35rem 0 0; font-size: 0.96rem; }
+  .phase .cost {
+    display: inline-block; margin-top: 0.55rem; font-family: var(--mono);
+    font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--dim); border: 1px solid var(--rule); padding: 0.2rem 0.5rem;
+  }
+
+  details { border-top: 1px solid var(--rule); padding: 0.9rem 0; }
+  details:last-of-type { border-bottom: 1px solid var(--rule); }
+  summary {
+    cursor: pointer; font-family: var(--display); font-weight: 600;
+    font-size: 1rem; letter-spacing: -0.01em; list-style: none;
+    display: grid; grid-template-columns: 1fr 1.2rem; gap: 0.75rem; align-items: baseline;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-family: var(--mono); color: var(--mark); text-align: right; font-size: 0.92rem; }
+  details[open] summary::after { content: "\2212"; }
+  details .answer { color: var(--dim); padding-top: 0.7rem; font-size: 0.96rem; }
+
+  footer { padding: 3rem 0 4rem; color: var(--dim); font-size: 0.9rem; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="kicker">
+      <span class="label">Differentiation plan</span>
+      <span class="label" style="color: var(--dim)">askfeyi.com</span>
+    </div>
+    <h1>The design is already yours. The words are not.</h1>
+    <p class="standfirst">
+      You asked how to differentiate from two sites and avoid a copyright
+      problem. Two of your assumptions need correcting first, and the second one
+      changes what we should actually fix.
+    </p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Corrections</span>
+      <h2>Before any of this is worth planning</h2>
+    </div>
+
+    <div class="correction">
+      <h3>askxara.ai is not a competitor site</h3>
+      <p>
+        It is a GoDaddy Website Builder placeholder serving "Ask Xara, Launching
+        Soon" and an email capture form. There is no product, no structure and no
+        design there to differentiate against. Studying it would tell us nothing.
+      </p>
+    </div>
+
+    <div class="correction">
+      <h3>Your risk is the copy, not the layout</h3>
+      <p>
+        After the rebrand, the visual identity is largely original: the navy
+        palette is gone, the emerald gradient is gone, the grid mask was
+        rewritten. What survived untouched is roughly ten sentences of Zahia's
+        prose sitting in your source with only the brand name swapped.
+      </p>
+    </div>
+
+    <p>
+      That inversion matters. Effort spent redesigning to look less like Zahia is
+      effort spent on the part that is already fine. The exposure is text, and
+      text is the cheapest thing on the page to replace.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wide">
+    <div class="sec-head" style="max-width: 34rem; margin: 0 auto 2rem;">
+      <span class="label">Evidence</span>
+      <h2>What is still literally theirs</h2>
+    </div>
+
+    <div class="scroller">
+      <table class="evidence">
+        <caption>Token overlap with askzahia.com after normalising the brand name</caption>
+        <thead>
+          <tr><th style="width: 5rem;">Match</th><th>Line currently shipping on askfeyi.com</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="pct">100%</td><td class="txt">AI-powered recipient suggestions and fraud detection. Single or bulk, it just works.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">Set it and forget it. One-time or recurring transfers with smart reminders.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">Top up any network instantly. Bulk purchases supported.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">Feyi is an AI-powered WhatsApp financial assistant that lets you manage your finances entirely through chat.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">Feyi is designed to understand natural language, but if it's unsure, it will ask clarifying questions.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">Lock the chat on WhatsApp! Locking it pins it to a dedicated section at the top of your inbox.</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">How can I easily access the Feyi chat anytime?</td></tr>
+          <tr><td class="pct">100%</td><td class="txt">What are my transaction limits?</td></tr>
+          <tr><td class="pct">80%</td><td class="txt">If you lose your phone, simply visit our website, and tap Block Account.</td></tr>
+          <tr><td class="pct">80%</td><td class="txt">Skip the menus and codes. Use everyday language: type, send an image, or record a voice note.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="wrap" style="padding-top: 2rem;">
+      <p>
+        I put those there. I pulled Zahia's strings out of their JavaScript bundle
+        to rebuild the page accurately, and the rebrand swapped the name without
+        rewriting the sentences. Owning that is easier than explaining it later.
+      </p>
+      <p>
+        The transaction limits are a separate matter. The figures of ₦300,000 per
+        transaction, ₦1,000,000 per day and ₦5,000,000 held also came from Zahia.
+        Numbers are facts and facts are not copyrightable, but they are almost
+        certainly not <em>your</em> numbers, which is a bigger problem than
+        copyright.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Ground rules</span>
+      <h2>What actually creates exposure</h2>
+    </div>
+
+    <p>
+      I am not a lawyer and this is not legal advice. But the engineering side of
+      it is simple enough to state plainly.
+    </p>
+    <p>
+      Copyright protects <strong>expression</strong>: the specific sentences,
+      images, and code someone wrote. It does not protect
+      <strong>ideas or functionality</strong>. Nobody owns the concept of paying
+      bills over WhatsApp, an FAQ accordion, or a three-column section. Common
+      layout conventions are weak ground for a claim precisely because everyone
+      uses them.
+    </p>
+    <p>
+      So a section called "Frequently asked questions" is fine. A section whose
+      answers are their answers is not. Swapping the trade name inside an
+      otherwise identical paragraph is the clearest form of the problem, not a
+      defence against it.
+    </p>
+    <p>
+      The safest position is also the better product position: write from your own
+      facts. Your limits, your fees, your partner, your users. Copy that is
+      specific to Feyi cannot be anybody else's by definition.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">The wedge</span>
+      <h2>Different audience, not different decoration</h2>
+    </div>
+
+    <div class="wedge">
+      <p>Feyi is for people who run something. Zahia is for everybody.</p>
+    </div>
+
+    <p>
+      Look at what the product already does: bulk transfers to several vendors at
+      once, bulk airtime across a staff list, scheduled rent, a spending summary
+      at the end of the day. Those are not consumer features. They are the daily
+      admin of somebody running a shop, a small team, or a trade.
+    </p>
+    <p>
+      Zahia's site aims at everyone with money, which is why it reads as generic.
+      Pointing Feyi at operators is a genuine positioning difference, it is
+      supported by features you have already built, and it makes copied copy
+      impossible, because none of their sentences are written for that reader.
+    </p>
+
+    <div class="versus">
+      <div>
+        <h3>Their framing</h3>
+        <ul class="them">
+          <li>Send ₦100 to Mom</li>
+          <li>Buy 2GB for the day</li>
+          <li>Check your balance</li>
+          <li>Personal finance, simplified</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Yours</h3>
+        <ul>
+          <li>Pay four vendors before you open</li>
+          <li>Top up the whole team's lines at once</li>
+          <li>Send a receipt to the person you just paid</li>
+          <li>Close the day knowing what went out</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Architecture</span>
+      <h2>A page shaped by that decision</h2>
+    </div>
+
+    <p>
+      Not the SaaS template with different words. The running order below follows
+      the order an operator actually evaluates a money app.
+    </p>
+
+    <ol class="arch">
+      <li>
+        <div>
+          <h3>One conversation, doing a day's work</h3>
+          <p>A live chat in the hero paying three vendors in a single message. Not a feature list, a task completing.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The receipt</h3>
+          <p>Nigerian trade runs on proof of payment. Every Feyi transaction produces a receipt you forward to the person you paid. Zahia has receipt images in their assets and never builds anything around them. This is the most ownable idea available and nobody is using it.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Pay everyone at once</h3>
+          <p>The bulk capability, given its own section instead of one card in a grid of six.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Who holds your money</h3>
+          <p>Partner, licence, and the plain sentence that Feyi never holds it.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>What it costs</h3>
+          <p>Answered directly. Every competitor dodges this, which is exactly why answering reads as confidence.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>When it goes wrong</h3>
+          <p>Lost phone, wrong recipient, a misread instruction, how a dispute resolves. Where sceptics convert.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Questions, written from your support inbox</h3>
+          <p>Real questions people have actually asked you. This is what replaces the copied FAQ.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Identity</span>
+      <h2>Ledger, not glass</h2>
+    </div>
+
+    <p>
+      Zahia's look is dark navy, glassmorphism, blurred emerald glows, Inter. Our
+      current page still shares the last of that: the frosted card treatment is
+      the one piece of their visual language left in the stylesheet.
+    </p>
+    <p>
+      The direction I would take instead comes from the receipt idea. Paper rather
+      than glass. An off-white ground, ink black text, hairline rules, monospaced
+      figures for every amount, and green reserved for the one action per screen.
+      It looks like a ledger and a printed receipt, which is what the product
+      produces, and it is impossible to confuse with a dark glassmorphic site.
+    </p>
+
+    <ul class="chips">
+      <li><span class="sw" style="background:#FBFCFA"></span>paper</li>
+      <li><span class="sw" style="background:#10150F"></span>ink</li>
+      <li><span class="sw" style="background:#25D366"></span>action</li>
+      <li><span class="sw" style="background:#5A6A5F"></span>secondary</li>
+      <li><span class="sw" style="background:#DFE6E1"></span>rule</li>
+    </ul>
+
+    <p style="margin-top: 1.5rem;">
+      Type should move off Inter, which both sites use and which reads as the
+      default choice. A grotesque with some character for headings, and tabular
+      monospaced numerals wherever an amount appears, so figures line up the way
+      they do on a real receipt.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Sequencing</span>
+      <h2>Order of work</h2>
+    </div>
+
+    <div class="phases">
+      <div class="phase">
+        <span class="num">01</span>
+        <div>
+          <h3>Replace the copied prose</h3>
+          <p>
+            The ten lines in the evidence table, rewritten from Feyi's own facts.
+            This closes the legal exposure and needs nothing from anyone. It is
+            the only item here with a deadline attached, because it is live now.
+          </p>
+          <span class="cost">Do this first</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="num">02</span>
+        <div>
+          <h3>Repoint the copy at operators</h3>
+          <p>
+            Rewrite headlines and scenarios for someone running a shop or a team.
+            Drop the last frosted-glass styling. Still no new components.
+          </p>
+          <span class="cost">Positioning</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="num">03</span>
+        <div>
+          <h3>Build the receipt</h3>
+          <p>
+            The ownable idea. A real receipt component in the page, and the hero
+            conversation that produces one. Scripted, no backend calls.
+          </p>
+          <span class="cost">The differentiator</span>
+        </div>
+      </div>
+      <div class="phase">
+        <span class="num">04</span>
+        <div>
+          <h3>Identity pass</h3>
+          <p>
+            Paper ground, new display face, tabular figures, green pulled back to
+            a single action per screen.
+          </p>
+          <span class="cost">Finishing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Pushback</span>
+      <h2>Where I would argue with this</h2>
+    </div>
+
+    <details>
+      <summary>Narrowing to operators loses consumer signups</summary>
+      <div class="answer">
+        It does, and that is the trade. A page addressed to everyone converts
+        nobody in particular. If consumer volume is the actual business, say so
+        and I will build the wedge around a different reader, but pick one.
+      </div>
+    </details>
+
+    <details>
+      <summary>The receipt may already exist in the product</summary>
+      <div class="answer">
+        If the Java backend already generates receipts, this is a marketing
+        decision and cheap. If it does not, I am proposing a page that promises
+        something the product does not do yet, which we must not ship. Confirm
+        before phase three.
+      </div>
+    </details>
+
+    <details>
+      <summary>Rewriting the FAQ needs your support inbox</summary>
+      <div class="answer">
+        I can write replacements that are original and accurate, but the genuinely
+        good version uses questions real users asked. If you have any WhatsApp
+        support history, that is the raw material.
+      </div>
+    </details>
+
+    <details>
+      <summary>The limits need checking, not rewording</summary>
+      <div class="answer">
+        Publishing Zahia's transaction limits as your own is a product accuracy
+        problem before it is a copyright one. Those figures need confirming
+        against your own licence and partner agreement regardless of what we do
+        to the page.
+      </div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Plan only, nothing built. Phase one closes the live exposure and needs nothing
+    from anybody, so I would start there unless you say otherwise.
+  </div>
+</footer>
